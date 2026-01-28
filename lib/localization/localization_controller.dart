@@ -13,7 +13,7 @@ class LocalizationController extends GetxController  implements GetxService{
     loadCurrentLanguage();
   }
 
-  Locale _locale = Locale(AppConstants.languages[0].languageCode, AppConstants.languages[0].countryCode);
+  Locale _locale = Locale('pt', 'BR');
   bool _isLtr = true;
   int _selectIndex = 0;
   List<LanguageModel> _languages = [];
@@ -35,12 +35,11 @@ class LocalizationController extends GetxController  implements GetxService{
   }
 
   void loadCurrentLanguage() async {
-    if(sharedPreferences.containsKey(AppConstants.languageCode)){
-      _locale = Locale(sharedPreferences.getString(AppConstants.languageCode)!,
-          sharedPreferences.getString(AppConstants.countryCode));
-      _isLtr = !intl.Bidi.isRtlLanguage(_locale.languageCode);
-      update();
-    }
+    // Sempre definir português como idioma padrão
+    _locale = Locale('pt', 'BR');
+    _isLtr = !intl.Bidi.isRtlLanguage(_locale.languageCode);
+    saveLanguage(_locale);
+    update();
   }
 
   void saveLanguage(Locale locale) async {
@@ -90,10 +89,7 @@ class LocalizationController extends GetxController  implements GetxService{
   }
 
   bool haveLocalLanguageCode() {
-    if(sharedPreferences.containsKey(AppConstants.languageCode)) {
-      return true;
-    }else{
-      return false;
-    }
+    // Sempre retornar true pois português está sempre configurado
+    return true;
   }
 }

@@ -44,48 +44,38 @@ class LanguageSelectBottomSheet extends StatelessWidget {
                 ]),
                 const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
-                Text('select_language'.tr,style: textBold.copyWith(fontSize: Dimensions.fontSizeLarge),),
+                Text('idioma_atual'.tr,style: textBold.copyWith(fontSize: Dimensions.fontSizeLarge),),
 
                 const SizedBox(height: Dimensions.paddingSizeSmall,),
-                Text('choose_your_language_to_processed'.tr,style: textRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                Text('portugues_brasil'.tr,style: textRegular.copyWith(fontSize: Dimensions.fontSizeDefault)),
 
                 const SizedBox(height: Dimensions.paddingSizeLarge),
-                ListView.builder(
-                  itemCount: AppConstants.languages.length,
-                  shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index){
-                    return InkWell(onTap: (){
-                      localizationController.setSelectIndex(index);
-                    },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: localizationController.selectIndex == index ? Theme.of(context).primaryColor.withValues(alpha:0.05) : null,
-                            borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
-                            border: localizationController.selectIndex == index ? Border.all(width: 0.5,color: Theme.of(context).primaryColor.withValues(alpha: 0.2)) : null
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(children: [
-                            Image.asset(AppConstants.languages[index].imageUrl,height: 26,width: 26,),
-                            const SizedBox(width:Dimensions.paddingSizeExtraSmall),
+                
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withValues(alpha:0.05),
+                      borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
+                      border: Border.all(width: 0.5,color: Theme.of(context).primaryColor.withValues(alpha: 0.2))
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(children: [
+                      Image.asset(AppConstants.languages[0].imageUrl,height: 26,width: 26,),
+                      const SizedBox(width:Dimensions.paddingSizeExtraSmall),
 
-                            Text(
-                              '${AppConstants.languages[index].countryCode} (${AppConstants.languages[index].languageName})',
-                              style: textSemiBold.copyWith(fontSize: Dimensions.fontSizeDefault),
-                            ),
-                          ]),
-                        ),
+                      Text(
+                        '${AppConstants.languages[0].countryCode} (${AppConstants.languages[0].languageName})',
+                        style: textSemiBold.copyWith(fontSize: Dimensions.fontSizeDefault),
                       ),
-                    );
-                  },
+                    ]),
+                  ),
                 ),
                 const SizedBox(height: Dimensions.paddingSizeDefault),
 
                 ButtonWidget(
-                  buttonText: 'update'.tr,
+                  buttonText: 'ok'.tr,
                   backgroundColor: Theme.of(context).primaryColor,
                   onPressed: (){
-                    localizationController.setLanguage(Locale(AppConstants.languages[localizationController.selectIndex].languageCode, AppConstants.languages[localizationController.selectIndex].countryCode));
                     Get.back();
                   },
                 )
